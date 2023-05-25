@@ -13,10 +13,41 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: echo Welcome to Wibu CI/CD
+  displayName: 'Welcome to Wibu Team'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
+    echo Prepare atheris for testing.
+    pip3 install atheris
+  displayName: 'Prepare atheris for testing'
+
+- script: |
+    echo Prepare bandit for testing.
+    pip3 install bandit
+  displayName: 'Prepare bandit for testing'
+
+- script: |
+    echo Testing structure of the code
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- script: |
+    echo Testing the library.
+    echo See https://aka.ms/yaml
+  displayName: 'Testing the library'
+
+- script: |
+    echo Testing the app.
+    echo See https://aka.ms/yaml
+  displayName: 'Testing the app'
+
+- script: |
+    echo Vulnerability scanning
+    bandit -r src/applications.py
+  displayName: 'Running test for vulnerability scanning'
+
+- script: |
+    echo Solve case.
+    diff solve/applications.py src/applications.py
+    diff solve/lib.py src/lib.py
+  displayName: 'Solving vulnerabilities'
